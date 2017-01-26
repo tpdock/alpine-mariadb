@@ -1,1 +1,1 @@
-docker run --name asql -it --rm -e MYSQL_DATABASE=tposs -e MYSQL_USER=tposs -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATADIR=/dev/mysql t
+docker run --name alpine-mariadb -itd -e MYSQL_DATABASE=tposs -e MYSQL_USER=tposs -e MYSQL_PASSWORD=tposs  -e MYSQL_DATADIR=/dev/mysql -p 3306:3306 tpdock/alpine-mariadb:10.1
