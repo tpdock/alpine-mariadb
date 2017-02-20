@@ -1,25 +1,19 @@
 #!/bin/sh
 
-if [ -d "/run/mysqld" ]; then
-	chown -R mysql:mysql /run/mysqld
-else
-	echo "[i] mysqld not found, creating...."
-	mkdir -p /run/mysqld
-	chown -R mysql:mysql /run/mysqld
-fi
-
 MYSQL_DATADIR=${MYSQL_DATADIR:-"/var/lib/mysql"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-""}
 MYSQL_USER=${MYSQL_USER:-""}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
 
-mkdir -p "$MYSQL_DATADIR/mysql"
-chown -R mysql:mysql $MYSQL_DATADIR
-
-if [ -d /var/lib/mysql/mysql ]; then
-	echo "[i] MySQL directory already present, skipping creation"	
+if [ -d "/run/mysqld" ]; then
+        echo "[i] MySQL directory already present, skipping creation"
 else
+	echo "[i] mysqld not found, creating...."
+	mkdir -p /run/mysqld
+	chown -R mysql:mysql /run/mysqld
 	echo 'Initializing database'
+        mkdir -p "$MYSQL_DATADIR/mysql"
+        chown -R mysql:mysql $MYSQL_DATADIR
 	mysql_install_db --user=mysql --datadir="$MYSQL_DATADIR" --rpm
 	echo 'Database initialized'
 
